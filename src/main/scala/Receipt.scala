@@ -28,29 +28,29 @@ object ReceiptService extends unfiltered.filter.Plan {
     case req@GET(Path("/receipt")) => {
       req match {
         case Params(p) => p("filter").lift(0) match {
-          case Some(filter) => ResponseString(write(Receipts.search(filter)))
-          case None => ResponseString(write(Receipts.all))
+          case Some(filter) => ResponseString(write(ReceiptDAO.search(filter)))
+          case None => ResponseString(write(ReceiptDAO.all))
         }
       }
     }
 
 
     case GET(Path(Seg("receipt" :: id :: Nil))) => {
-      ResponseString(write(Receipts.get(id.toInt)))
+      ResponseString(write(ReceiptDAO.get(id.toInt)))
     }
 
 
     case req@POST(Path("/receipt")) => {
       val receipt = read[Receipt](param(req))
 
-      Receipts.create(receipt)
+      ReceiptDAO.create(receipt)
 
       Created
     }
 
 
     case DELETE(Path(Seg("receipt" :: id :: Nil))) => {
-      Receipts.delete(id.toInt)
+      ReceiptDAO.delete(id.toInt)
 
       Ok
     }
