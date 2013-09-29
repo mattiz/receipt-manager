@@ -8,7 +8,7 @@
 import scala.xml.XML
 
 
-object Test extends App {
+object GoogleCalendar extends App {
 
   case class CalendarEntry(title: String, updated: String, published: String, summary: String)
 
