@@ -1,3 +1,4 @@
+import java.nio.file.Files
 import javax.servlet.http.HttpServletRequest
 import scala.io.Source
 import unfiltered.request._
@@ -57,7 +58,11 @@ object ReceiptService extends unfiltered.filter.Plan {
 
 
     case GET(Path(Seg("receipt" :: id :: "image" :: Nil))) => {
-      ResponseString("IMG: " + id)
+      val filename = "images/" + ReceiptDAO.get(id.toInt).filename
+
+      val bytes = Files.readAllBytes(java.nio.file.Paths.get( filename ))
+
+      ResponseBytes(bytes)
     }
   }
 
