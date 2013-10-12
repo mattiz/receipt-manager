@@ -1,0 +1,23 @@
+<div class="row">
+
+    <div class="col-lg-12">
+        <h2>Receipts</h2>
+
+        <table class="table table-striped" ng-controller="ReceiptListCtrl">
+            <thead>
+            <tr>
+                <th>Vendor</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="receipt in receipts">
+                <td><a href="#/receipt/{{receipt.id}}">{{receipt.vendor}}</a></td>
+                <td>{{receipt.description}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

@@ -10,30 +10,7 @@
 
 
 <div class="container">
-
-    <div class="row">
-
-        <div class="col-lg-12">
-            <h2>Receipts</h2>
-
-            <table class="table table-striped" ng-controller="ReceiptCtrl">
-                <thead>
-                <tr>
-                    <th>Vendor</th>
-                    <th>Description</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="receipt in receipts">
-                    <td>{{receipt.vendor}}</td>
-                    <td>{{receipt.description}}</td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div>
-
-    </div>
+    <div ng-view class="view-frame"></div>
 
     <hr>
 
@@ -45,8 +22,11 @@
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-resource.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-resource.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-route.min.js"></script>
 <script src="js/receipt.js"></script>
+
+
 </body>
 </html>
