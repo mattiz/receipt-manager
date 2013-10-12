@@ -28,6 +28,24 @@ receiptControllers.controller('ReceiptDetailCtrl', ['$scope', '$routeParams', 'R
         $scope.receipt = Receipt.get({receiptId: $routeParams.receiptId});
     }]);
 
+receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$location', '$q', '$routeParams', 'Receipt',
+    function ($scope, $location, $q, $routeParams, Receipt) {
+        $scope.save = function () {
+
+            console.log($scope.receipt);
+
+            $q.all([
+                    Receipt.save({
+                        "vendor": $scope.receipt.vendor,
+                        "description": $scope.receipt.description,
+                        "filename": ""
+                    }).promise])
+                .then(function (data) {
+                    $location.path('/receipts');
+                });
+        }
+    }]);
+
 // ----------------------------------------------
 // -------------- Application -------------------
 
@@ -41,7 +59,11 @@ receiptApp.config(['$routeProvider',
                 templateUrl: 'partials/receipt-list.html',
                 controller: 'ReceiptListCtrl'
             }).
-            when('/receipt/:receiptId', {
+            when('/receipt/new', {
+                templateUrl: 'partials/receipt-detail.html',
+                controller: 'CreateReceiptCtrl'
+            }).
+            when('/receipt/edit/:receiptId', {
                 templateUrl: 'partials/receipt-detail.html',
                 controller: 'ReceiptDetailCtrl'
             }).
