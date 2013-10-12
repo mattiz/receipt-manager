@@ -1,6 +1,7 @@
 import java.nio.file.Files
 import javax.servlet.http.HttpServletRequest
 import scala.io.Source
+import unfiltered.jetty.ContextBuilder
 import unfiltered.request._
 import unfiltered.response._
 import net.liftweb.json._
@@ -60,7 +61,7 @@ object ReceiptService extends unfiltered.filter.Plan {
     case GET(Path(Seg("receipt" :: id :: "image" :: Nil))) => {
       val filename = "images/" + ReceiptDAO.get(id.toInt).filename
 
-      val bytes = Files.readAllBytes(java.nio.file.Paths.get( filename ))
+      val bytes = Files.readAllBytes(java.nio.file.Paths.get(filename))
 
       ResponseBytes(bytes)
     }
@@ -74,5 +75,11 @@ object ReceiptService extends unfiltered.filter.Plan {
 
 
 object Server extends App {
-  unfiltered.jetty.Http.local(2010).filter(ReceiptService).run()
+  unfiltered.jetty.Http
+    .local(2010)
+    .context("/public") { ctx: ContextBuilder =>
+        ctx.resources(new java.net.URL("file:///home/mattis/temp/scala-unfiltered/justplayin/src/main/resources/www"))
+    }
+    .filter(ReceiptService)
+    .run()
 }
