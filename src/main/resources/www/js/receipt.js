@@ -38,11 +38,7 @@ receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$location', '$q',
     function ($scope, $location, $q, $routeParams, Receipt) {
         $scope.save = function () {
             $q.all([
-                    Receipt.save({
-                        "vendor": $scope.receipt.vendor,
-                        "description": $scope.receipt.description,
-                        "filename": ""
-                    }).promise])
+                    Receipt.save($scope.receipt).promise])
                 .then(function (data) {
                     $location.path('/receipts');
                 });
