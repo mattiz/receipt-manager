@@ -32,6 +32,8 @@ receiptControllers.controller('ReceiptDetailCtrl', ['$scope', '$location', '$rou
                 $location.path('/receipts');
             });
         }
+
+        $scope.fileUrl = '/receipt/' + $routeParams.receiptId + '/image';
     }]);
 
 receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$location', '$q', '$routeParams', 'Receipt',

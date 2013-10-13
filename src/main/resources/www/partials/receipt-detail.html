@@ -8,12 +8,13 @@
         <input type="text" ng-model="receipt.description">
         <br>
         <input type="text" ng-model="receipt.filename">
-
+        <br>
+        <img ng-src="{{fileUrl}}">
 
         <br><br>
-        <a href="/public/#/receipts">Tilbake</a>
-        <a ng-click="save()">Save</a>
-        <a ng-click="delete()">Delete</a>
+        <a class="btn btn-default" href="/public/#/receipts">Tilbake</a>
+        <a class="btn btn-primary" ng-click="save()">Save</a>
+        <a class="btn btn-danger" ng-click="delete()">Delete</a>
 
     </div>
 
