@@ -23,17 +23,20 @@ receiptControllers.controller('ReceiptListCtrl', ['$scope', 'Receipt',
         $scope.receipts = Receipt.query();
     }]);
 
-receiptControllers.controller('ReceiptDetailCtrl', ['$scope', '$routeParams', 'Receipt',
-    function ($scope, $routeParams, Receipt) {
+receiptControllers.controller('ReceiptDetailCtrl', ['$scope', '$location', '$routeParams', 'Receipt',
+    function ($scope, $location, $routeParams, Receipt) {
         $scope.receipt = Receipt.get({receiptId: $routeParams.receiptId});
+
+        $scope.delete = function () {
+            Receipt.delete({receiptId: $routeParams.receiptId}).$promise.then(function () {
+                $location.path('/receipts');
+            });
+        }
     }]);
 
 receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$location', '$q', '$routeParams', 'Receipt',
     function ($scope, $location, $q, $routeParams, Receipt) {
         $scope.save = function () {
-
-            console.log($scope.receipt);
-
             $q.all([
                     Receipt.save({
                         "vendor": $scope.receipt.vendor,
