@@ -16,6 +16,7 @@ receiptServices.factory('Receipt', ['$resource',
 // ----------------------------------------------
 // -------------- Controllers -------------------
 
+
 var receiptControllers = angular.module('receiptControllers', []);
 
 receiptControllers.controller('ReceiptListCtrl', ['$scope', 'Receipt',
@@ -36,8 +37,8 @@ receiptControllers.controller('ReceiptDetailCtrl', ['$scope', '$location', '$rou
         $scope.fileUrl = '/receipt/' + $routeParams.receiptId + '/image';
     }]);
 
-receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$location', '$q', '$routeParams', 'Receipt',
-    function ($scope, $location, $q, $routeParams, Receipt) {
+receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$http', '$location', '$q', '$routeParams', 'Receipt',
+    function ($scope, $http, $location, $q, $routeParams, Receipt) {
         $scope.save = function () {
             $q.all([
                     Receipt.save($scope.receipt).promise])
@@ -45,12 +46,34 @@ receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$location', '$q',
                     $location.path('/receipts');
                 });
         }
+
+
+        $scope.selectedFiles = [];
+
+        $scope.onFileSelect = function ($files) {
+            //$files: an array of files selected, each file has name, size, and type.
+            for (var i = 0; i < $files.length; i++) {
+                var $file = $files[i];
+
+                $http.uploadFile({
+                    url: '/receipt/1/image',
+                    data: {myObj: 'test'},
+                    file: $file
+
+                }).then(function (data, status, headers, config) {
+                        // file is uploaded successfully
+                        console.log(data);
+                    });
+            }
+        }
+
+
     }]);
 
 // ----------------------------------------------
 // -------------- Application -------------------
 
-var receiptApp = angular.module('receiptApp', ['ngRoute', 'receiptControllers', 'receiptServices']);
+var receiptApp = angular.module('receiptApp', ['ngRoute', 'receiptControllers', 'receiptServices', 'angularFileUpload']);
 
 
 receiptApp.config(['$routeProvider',
@@ -72,3 +95,18 @@ receiptApp.config(['$routeProvider',
                 redirectTo: '/receipts'
             });
     }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

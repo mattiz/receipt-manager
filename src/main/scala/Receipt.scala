@@ -6,6 +6,7 @@ import unfiltered.request._
 import unfiltered.response._
 import net.liftweb.json._
 import net.liftweb.json.Serialization.{read, write}
+import scala.collection.immutable.Stream;
 
 
 /*
@@ -65,7 +66,18 @@ object ReceiptService extends unfiltered.filter.Plan {
 
       ResponseBytes(bytes)
     }
+
+
+
+  case req@POST(Path(Seg("receipt" :: id :: "image" :: Nil))) => {
+
+    val data = Stream.continually(req.inputStream.read).takeWhile(-1 !=).map(_.toByte).toArray
+
+    println("LEN: " + data.length)
+
+    Ok
   }
+}
 
 
   def param(req: HttpRequest[HttpServletRequest]) =
