@@ -37,13 +37,25 @@ receiptControllers.controller('ReceiptDetailCtrl', ['$scope', '$location', '$rou
         $scope.fileUrl = '/receipt/' + $routeParams.receiptId + '/image';
     }]);
 
+
+
+
+
+
+
 receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$http', '$location', '$q', '$routeParams', 'Receipt',
     function ($scope, $http, $location, $q, $routeParams, Receipt) {
-        $scope.save = function () {
+        $scope.save = function (filename, storageName) {
+
+            $scope.receipt.filename = filename;
+            $scope.receipt.storageName = storageName;
+
+            console.log($scope);
+
             $q.all([
-                    Receipt.save($scope.receipt).promise])
+                Receipt.save($scope.receipt).promise])
                 .then(function (data) {
-                    console.log(data);
+                    console.log("Receipt saved: " + data);
                     //$location.path('/receipts');
                 });
         }
@@ -69,13 +81,23 @@ receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$http', '$locatio
                     file: $file
 
                 }).then(function (data, status, headers, config) {
-                        console.log(data);
+                        console.log("File uploaded: " + data.config.file.name);
+                        console.log(data)
+                        
+                        $scope.save(data.config.file.name, data.data);
                     });
             }
         }
 
 
     }]);
+
+
+
+
+
+
+
 
 // ----------------------------------------------
 // -------------- Application -------------------

@@ -3,12 +3,14 @@
     <div class="col-lg-12">
         <h2>Receipts</h2>
 
-        <input type="text" ng-model="receipt.vendor">
+        Vendor: <input type="text" ng-model="receipt.vendor">
         <br>
-        <input type="text" ng-model="receipt.description">
+        Desc: <input type="text" ng-model="receipt.description">
         <br>
+        <!--
         <input type="text" ng-model="receipt.filename">
         <br>
+        -->
         <input type="file" ng-file-select="onFileSelect($files, 1)">
 
         <img ng-src="{{fileUrl}}">
