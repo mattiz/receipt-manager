@@ -43,15 +43,23 @@ receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$http', '$locatio
             $q.all([
                     Receipt.save($scope.receipt).promise])
                 .then(function (data) {
-                    $location.path('/receipts');
+                    console.log(data);
+                    //$location.path('/receipts');
                 });
         }
 
 
         $scope.selectedFiles = [];
 
+
         $scope.onFileSelect = function ($files) {
-            //$files: an array of files selected, each file has name, size, and type.
+            $scope.selectedFiles = $files;
+        }
+
+
+        $scope.upload = function () {
+            var $files = $scope.selectedFiles;
+
             for (var i = 0; i < $files.length; i++) {
                 var $file = $files[i];
 
@@ -61,7 +69,6 @@ receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$http', '$locatio
                     file: $file
 
                 }).then(function (data, status, headers, config) {
-                        // file is uploaded successfully
                         console.log(data);
                     });
             }

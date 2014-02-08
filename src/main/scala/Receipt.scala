@@ -3,6 +3,7 @@ import javax.servlet.http.HttpServletRequest
 import scala.io.Source
 import unfiltered.jetty.ContextBuilder
 import unfiltered.request._
+import unfiltered.response
 import unfiltered.response._
 import net.liftweb.json._
 import net.liftweb.json.Serialization.{read, write}
@@ -46,9 +47,9 @@ object ReceiptService extends unfiltered.filter.Plan {
     case req@POST(Path("/receipt")) => {
       val receipt = read[Receipt](param(req))
 
-      ReceiptDAO.create(receipt)
+      val receiptId = ReceiptDAO.create(receipt)
 
-      Created
+      Created ~> ResponseString( receiptId.toString )
     }
 
 

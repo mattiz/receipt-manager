@@ -15,6 +15,8 @@ object ReceiptDAO {
     def filename = column[String]("Filename")
 
     def * = id.? ~ vendor ~ description ~ filename <>(Receipt, Receipt.unapply _)
+
+    def forInsert = vendor ~ description ~ filename <>({ t => Receipt(None, t._1, t._2, t._3)}, { (u: Receipt) => Some((u.vendor, u.description, u.filename))})
   }
 
 
@@ -49,8 +51,8 @@ object ReceiptDAO {
   }
 
 
-  def create(receipt: Receipt): Unit = {
-    Receipts.insert(receipt)
+  def create(receipt: Receipt): Int = {
+    Receipts.forInsert returning Receipts.id insert receipt
   }
 
 
