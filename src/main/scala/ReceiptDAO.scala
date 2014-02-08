@@ -1,7 +1,7 @@
 import scala.slick.driver.H2Driver.simple._
 
 
-case class Receipt(id: Option[Int], vendor: String, description: String, filename: String)
+case class Receipt(id: Option[Int], vendor: String, description: String, filename: String, storageName: String)
 
 
 object ReceiptDAO {
@@ -14,9 +14,11 @@ object ReceiptDAO {
 
     def filename = column[String]("Filename")
 
-    def * = id.? ~ vendor ~ description ~ filename <>(Receipt, Receipt.unapply _)
+    def storageName = column[String]("StorageName")
 
-    def forInsert = vendor ~ description ~ filename <>({ t => Receipt(None, t._1, t._2, t._3)}, { (u: Receipt) => Some((u.vendor, u.description, u.filename))})
+    def * = id.? ~ vendor ~ description ~ filename ~ storageName <>(Receipt, Receipt.unapply _)
+
+    def forInsert = vendor ~ description ~ filename ~ storageName <>({ t => Receipt(None, t._1, t._2, t._3, t._4)}, { (u: Receipt) => Some((u.vendor, u.description, u.filename, u.storageName))})
   }
 
 
@@ -25,9 +27,9 @@ object ReceiptDAO {
 
   Receipts.ddl.create
 
-  Receipts.insert(Receipt(None, "Jernia ", "Stekepanne", "mattis.jpg"))
-  Receipts.insert(Receipt(None, "Clas Ohlson ", "Merkemaskin", "simpsons-avatar.jpg"))
-  Receipts.insert(Receipt(None, "Clas Ohlson ", "Printerpapir.", "smiley.gif"))
+  Receipts.insert(Receipt(None, "Jernia ", "Stekepanne", "mattis.jpg", ""))
+  Receipts.insert(Receipt(None, "Clas Ohlson ", "Merkemaskin", "simpsons-avatar.jpg", ""))
+  Receipts.insert(Receipt(None, "Clas Ohlson ", "Printerpapir.", "smiley.gif", ""))
 
 
   def get(id: Int): Receipt = {

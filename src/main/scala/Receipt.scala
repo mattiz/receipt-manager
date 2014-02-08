@@ -77,7 +77,9 @@ object ReceiptService extends unfiltered.filter.Plan {
      * Get file for one receipt
      */
     case GET(Path(Seg("receipt" :: id :: "image" :: Nil))) => {
-      val filename = "images/" + ReceiptDAO.get(id.toInt).filename
+      val filename = "uploads/" + ReceiptDAO.get(id.toInt).storageName
+
+      println( filename )
 
       val bytes = Files.readAllBytes(java.nio.file.Paths.get(filename))
 
@@ -94,8 +96,10 @@ object ReceiptService extends unfiltered.filter.Plan {
 
       println("LEN: " + data.length)
 
-      val filename = "uploads/" + java.util.UUID.randomUUID().toString
-      bytesToFile( data, filename )
+      val filename = java.util.UUID.randomUUID().toString
+      val filePath = "uploads/" + filename
+      
+      bytesToFile( data, filePath )
 
       Created ~> ResponseString(filename)
     }

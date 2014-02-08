@@ -13,14 +13,14 @@
         -->
         <input type="file" ng-file-select="onFileSelect($files, 1)">
 
-        <img ng-src="{{fileUrl}}">
+        <a href="{{fileUrl}}">File</a>
 
         <br><br>
         <a class="btn btn-default" href="/public/#/receipts">Tilbake</a>
-        <a class="btn btn-primary" ng-click="save()">Save</a>
+        <a class="btn btn-primary" ng-click="upload()">Save</a>
         <a class="btn btn-danger" ng-click="delete()">Delete</a>
 
-        <a class="btn btn-danger" ng-click="upload()">Upload</a>
+        <!--<a class="btn btn-danger" ng-click="upload()">Upload</a>-->
 
     </div>
 

@@ -24,6 +24,9 @@ receiptControllers.controller('ReceiptListCtrl', ['$scope', 'Receipt',
         $scope.receipts = Receipt.query();
     }]);
 
+
+
+
 receiptControllers.controller('ReceiptDetailCtrl', ['$scope', '$location', '$routeParams', 'Receipt',
     function ($scope, $location, $routeParams, Receipt) {
         $scope.receipt = Receipt.get({receiptId: $routeParams.receiptId});
@@ -83,7 +86,7 @@ receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$http', '$locatio
                 }).then(function (data, status, headers, config) {
                         console.log("File uploaded: " + data.config.file.name);
                         console.log(data)
-                        
+
                         $scope.save(data.config.file.name, data.data);
                     });
             }
