@@ -27,9 +27,10 @@ object ReceiptDAO {
 
   Receipts.ddl.create
 
-  Receipts.insert(Receipt(None, "Jernia ", "Stekepanne", "mattis.jpg", ""))
-  Receipts.insert(Receipt(None, "Clas Ohlson ", "Merkemaskin", "simpsons-avatar.jpg", ""))
-  Receipts.insert(Receipt(None, "Clas Ohlson ", "Printerpapir.", "smiley.gif", ""))
+  Receipts.insert(Receipt(None, "Jernia", "Stekepanne", "mattis.jpg", ""))
+  Receipts.insert(Receipt(None, "Clas Ohlson", "Merkemaskin", "simpsons-avatar.jpg", ""))
+  Receipts.insert(Receipt(None, "Clas Ohlson", "Printerpapir.", "smiley.gif", ""))
+  Receipts.insert(Receipt(None, "Biltema", "Takstativ, skiholder", "kvittering.pdf", "d7955d8c-6946-418e-863c-3b2c401c14ee"))
 
 
   def get(id: Int): Receipt = {

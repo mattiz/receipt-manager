@@ -79,7 +79,7 @@ object ReceiptService extends unfiltered.filter.Plan {
     case GET(Path(Seg("receipt" :: id :: "image" :: Nil))) => {
       val filename = "uploads/" + ReceiptDAO.get(id.toInt).storageName
 
-      println( filename )
+      println(filename)
 
       val bytes = Files.readAllBytes(java.nio.file.Paths.get(filename))
 
@@ -98,16 +98,16 @@ object ReceiptService extends unfiltered.filter.Plan {
 
       val filename = java.util.UUID.randomUUID().toString
       val filePath = "uploads/" + filename
-      
-      bytesToFile( data, filePath )
+
+      bytesToFile(data, filePath)
 
       Created ~> ResponseString(filename)
     }
   }
 
 
-  def bytesToFile( bytes:Array[Byte], filename:String ): Unit = {
-    val out = new BufferedOutputStream( new FileOutputStream(filename) )
+  def bytesToFile(bytes: Array[Byte], filename: String): Unit = {
+    val out = new BufferedOutputStream(new FileOutputStream(filename))
     out.write(bytes)
     out.close()
   }
