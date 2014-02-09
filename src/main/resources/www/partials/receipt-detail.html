@@ -3,15 +3,20 @@
     <div class="col-lg-12">
         <h2>Receipts</h2>
 
-        Vendor: <input type="text" ng-model="receipt.vendor">
-        <br>
-        Desc: <input type="text" ng-model="receipt.description">
-        <br>
-        <!--
-        <input type="text" ng-model="receipt.filename">
-        <br>
-        -->
-        <input type="file" ng-file-select="onFileSelect($files, 1)">
+
+        <div class="form-group">
+            <label for="vendor">Vendor name</label>
+            <input type="text" class="form-control" id="vendor" placeholder="Enter vendor name" ng-model="receipt.vendor">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" placeholder="Description" ng-model="receipt.description">
+        </div>
+        <div class="form-group">
+            <label for="upload">Upload receipt</label>
+            <input type="file" id="upload" ng-file-select="onFileSelect($files, 1)">
+            <p class="help-block">Example block-level help text here.</p>
+        </div>
 
         <br><br>
         <a class="btn btn-default" href="/public/#/receipts">Tilbake</a>
