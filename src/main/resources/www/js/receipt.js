@@ -25,8 +25,6 @@ receiptControllers.controller('ReceiptListCtrl', ['$scope', 'Receipt',
     }]);
 
 
-
-
 receiptControllers.controller('ReceiptDetailCtrl', ['$scope', '$location', '$routeParams', 'Receipt',
     function ($scope, $location, $routeParams, Receipt) {
         $scope.receipt = Receipt.get({receiptId: $routeParams.receiptId});
@@ -41,11 +39,6 @@ receiptControllers.controller('ReceiptDetailCtrl', ['$scope', '$location', '$rou
     }]);
 
 
-
-
-
-
-
 receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$http', '$location', '$q', '$routeParams', 'Receipt',
     function ($scope, $http, $location, $q, $routeParams, Receipt) {
         $scope.save = function (filename, storageName) {
@@ -56,7 +49,7 @@ receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$http', '$locatio
             console.log($scope);
 
             $q.all([
-                Receipt.save($scope.receipt).promise])
+                    Receipt.save($scope.receipt).promise])
                 .then(function (data) {
                     console.log("Receipt saved: " + data);
                     //$location.path('/receipts');
@@ -94,12 +87,6 @@ receiptControllers.controller('CreateReceiptCtrl', ['$scope', '$http', '$locatio
 
 
     }]);
-
-
-
-
-
-
 
 
 // ----------------------------------------------
